@@ -1,0 +1,79 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <dib class="col-6">
+            <h2 class="text-primary">User Dashboard</h2>
+        </dib>
+        <dib class="col-6 text-end">
+            <a asp-controller="User" asp-action="Create" class="btn btn-primary">Create New User</a>
+        </dib>
+    </div>
+
+
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>PreviouslyOrdered</th>
+                <th>Online Customer</th>
+                <th>Last Active</th>
+                <th>Is Palindrome</th>
+                <th>Favourite Colours</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+
+                    <td>
+                        <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">
+                            @user.FirstName @user.LastName
+                        </a>
+                    </td>
+
+                    <td style="@GetTrueOrFalse(user.PreviouslyOrdered)">@user.PreviouslyOrdered</td>
+                    <td style="@GetTrueOrFalse(user.IsWebCustomer)">@user.IsWebCustomer</td>
+                    <td>@user.DateActive.ToString("dd/MM/yyyy")</td>
+                    <td style="@GetTrueOrFalse(GetPalindrome(user.FirstName, user.LastName))">@GetPalindrome(user.FirstName, user.LastName)</td>
+                    @*                    <td>
+                        <input type="checkbox" disabled="disabled">;
+                        </td>*@
+                </tr>
+                @*                <tr>
+                    @foreach (var color in user.Colours)
+                    {
+
+                    }
+
+                    </tr>*@
+            }
+        </tbody>
+    </table>
+</div>
+@{
+    bool GetPalindrome(string firstName, string lastName)
+    {
+        string fullName = firstName + lastName;
+        return fullName.SequenceEqual(fullName.Reverse());
+    }
+
+    string GetTrueOrFalse(bool data)
+    {
+        if (data)
+        {
+            return "color: green; font-weight: bold;";
+        }
+        else
+        {
+            return "color: red; font-weight: bold;";
+        }
+    }
+}

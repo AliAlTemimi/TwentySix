@@ -1,0 +1,37 @@
+﻿@model User
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Create new user</h2>
+            <hr />
+        </div>
+        <div class="mb-3">
+            <label asp-for="FirstName">First Name</label>
+            <input required asp-for="FirstName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="LastName">Last Name</label>
+            <input required asp-for="LastName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="PreviouslyOrdered">Previously Ordered</label>
+            <input type="checkbox" asp-for="PreviouslyOrdered" />
+            <label asp-for="IsWebCustomer">Web Customer</label>
+            <input type="checkbox" asp-for="IsWebCustomer" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="DateActive">Date Active</label>
+            <input required value="@DateTime.Now.ToString()" type="datetime-local" asp-for="DateActive" />
+        </div>
+
+@*        <div class="mb-3">
+
+                <label asp-for="Colours">Colours</label>
+                <input type="checkbox" asp-for="Colours" />
+
+        </div>*@
+
+        <button type="submit" class="btn btn-primary" style="width:150px;">Submit</button>
+    </div>
+</form>
